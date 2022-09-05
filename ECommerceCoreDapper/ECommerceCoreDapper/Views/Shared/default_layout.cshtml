@@ -1,0 +1,242 @@
+﻿
+@{
+    Layout = "";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Home</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+   <link rel="stylesheet" href="~/ECommerceCoreDapper.styles.css" asp-append-version="true" />
+	
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/mylogos/favicon.png"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/slick/slick.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/MagnificPopup/magnific-popup.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+
+<!--===============================================================================================-->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKFWBqlKAGCeS1rMVoaNlwyayu0e0YRes"></script>
+	<script src="js/map-custom.js"></script>
+<!--===============================================================================================-->
+</head>
+
+<body class="animsition">
+@await Html.PartialAsync("~/Views/Partial/_header.cshtml") 
+@RenderBody()
+@await Html.PartialAsync("~/Views/Partial/_footer.cshtml")  
+
+</body>	
+	
+
+
+<!--===============================================================================================-->	
+	@*<script src="vendor/jquery/jquery-3.2.1.min.js"></script>*@
+	
+<!--===============================================================================================-->
+	<script src="vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+	<script>
+		$(".js-select2").each(function(){
+			$(this).select2({
+				minimumResultsForSearch: 20,
+				dropdownParent: $(this).next('.dropDownSelect2')
+			});
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="vendor/daterangepicker/moment.min.js"></script>
+	<script src="vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/slick/slick.min.js"></script>
+	<script src="js/slick-custom.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/parallax100/parallax100.js"></script>
+	<script>
+        $('.parallax100').parallax100();
+	</script>
+<!--===============================================================================================-->
+	<script src="vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script>
+		$('.gallery-lb').each(function() { / the containers for all your galleries
+			$(this).magnificPopup({
+		        delegate: 'a', / the selector for gallery item
+		        type: 'image',
+		        gallery: {
+		        	enabled:true
+		        },
+		        mainClass: 'mfp-fade'
+		    });
+		});
+	</script>
+<!--===============================================================================================-->
+	<script src="vendor/isotope/isotope.pkgd.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/sweetalert/sweetalert.min.js"></script>
+	<script>
+			$('.js-addwish-b2').on('click', function(e){
+				e.preventDefault();	
+				var Pid = $(this).parent().parent().find('.PrID').val();
+			});
+			$('.js-addwish-b2').each(function(){
+				var nameProduct = $(this).parent().parent().find('.js-name-b2').html();				
+				$(this).on('click', function(){					
+					if($(this).hasClass('js-addedwish-b2')) {                      
+						swal(nameProduct,"is remove to wishlist !", "error");
+						$(this).removeClass('js-addedwish-b2');
+                        $.get("/User/Mywish", { id: $(this).parent().parent().find('.PrID').val()}, function(result) {
+
+						})
+						
+					}
+					else 
+					{
+						swal(nameProduct, "is added to wishlist !", "success");
+						$(this).addClass('js-addedwish-b2');
+						 $.get("/User/Mywish", { id: $(this).parent().parent().find('.PrID').val() }, function(result) {
+
+						})
+                        				
+					}
+				
+					//$(this).off('click');
+			
+				});	
+			});
+		
+			
+
+
+		$('.js-addwish-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-detail');
+				$(this).off('click');
+			});
+		});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+			var Pid = $(this).parent().parent().find('.PrID').val();			
+				$(this).on('click', function(){
+				swal(nameProduct, "is added to cart !", "success");
+				 $.get("/User/GetCart", { id: $(this).parent().parent().find('.PrID').val() }, function(result) {
+					window.location.reload(false)
+				})
+			});
+		});
+	
+	</script>
+	<script>
+	 $('.how-itemcart1').on('click', function () {
+        var Pid =  $(this).parent().parent().find('.PrID').val();
+        $.get('@Url.Action("Cart","User")',{ scid: $(this).parent().parent().find('.PrID').val() }, function (result) {
+			window.location.reload(false)
+        })		
+		
+    })
+	</script>
+<!--===============================================================================================-->	
+	@*<script>
+	$('#goOrd').on('click', function() {
+		 swal("Perfect","is added to Order for next time!", "success");
+		 $.get('@Url.Action("ComingSoon","User")', function (result) {
+        })
+	})
+	</script>*@
+<!--===============================================================================================-->
+<script>
+$('#plcOrd').on('click', function() {
+	swal( @ViewBag.ordGuid,"is added to Order for next time!", "success")
+})
+</script>
+<!--===============================================================================================-->	
+
+<!--===============================================================================================-->
+		<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+			$('.js-pscroll').each(function(){
+				$(this).css('position','relative');
+				$(this).css('overflow','hidden');
+				var ps = new PerfectScrollbar(this, {
+					wheelSpeed: 1,
+					scrollingThreshold: 1000,
+					wheelPropagation: false,
+				});
+
+				$(window).on('resize', function(){
+					ps.update();
+				})
+			});
+	</script>
+	<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+	@*[ Show modal1 ]*/
+	<script>
+	 $('.js-show-modal1').on('click', function(e){
+		//e.preventDefault();	
+		var Pid = $(this).parent().parent().find('.PrID').val();
+	});
+	$('.js-show-modal1').each(function() {
+    $(this).on('click', function() {
+			alert(Pid)
+		 $.get("/Home/Details", { id: $(this).parent().parent().find('.PrID').val() }, function(result) {
+			 $(this).addClass('show-modal1');
+			}) 
+       
+		});
+	});
+
+   
+
+    $('.js-hide-modal1').on('click',function(){
+        $('.js-modal1').removeClass('show-modal1');
+    });
+	</script>*@
+	@*<script>
+$(document).ready(function() {
+	$.get('@Url.Action("Cart","User")', function (result) {
+			
+        })
+})
+</script>*@
+
+	</html>

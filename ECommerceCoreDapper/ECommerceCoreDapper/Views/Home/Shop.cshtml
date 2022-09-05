@@ -1,0 +1,457 @@
+﻿@using ECommerceCoreDapper.MVVM
+@model ViewProductsModel
+@{
+    ViewData["Title"] = "Shop";
+    Layout = "~/Views/Shared/default_layout.cshtml";
+}
+
+	
+	
+	
+	<!-- Product -->
+	<section class="sec-product bg0 p-t-100 p-b-50">
+		<div class="container">
+			<div class="p-b-32">
+				<h3 class="ltext-105 cl5 txt-center respon1">
+					SHOP'EN SHOP
+				</h3>
+			</div>				
+			<!-- Tab01 -->
+			<div class="tab01">
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="nav-item p-b-10">
+						<a class="nav-link active" data-toggle="tab" href="#all-product" role="tab">All Products</a>
+					</li>
+
+					<li class="nav-item p-b-10">
+						<a class="nav-link" data-toggle="tab" href="#women" role="tab">Women</a>
+					</li>
+
+					<li class="nav-item p-b-10">
+						<a class="nav-link" data-toggle="tab" href="#men" role="tab">Men</a>
+					</li>
+
+					<li class="nav-item p-b-10">
+						<a class="nav-link" data-toggle="tab" href="#bag" role="tab">Bag</a>
+					</li>
+					<li class="nav-item p-b-10">
+						<a class="nav-link" data-toggle="tab" href="#shoes" role="tab">Shoes</a>
+					</li>
+					<li class="nav-item p-b-10">
+						<a class="nav-link" data-toggle="tab" href="#watches" role="tab">Watches</a>
+					</li>
+				</ul>			
+
+				<!-- Tab panes -->
+				<div class="tab-content p-t-50">
+					<!-- - -->
+					<div class="tab-pane fade show active" id="all-product" role="tabpanel">
+						<div class="wrap-slick2">
+							<div class="slick2">
+								@foreach (var item in Model.AllProduct)
+								{
+								<div class="col-sm-6 col-md-4 col-lg-3">
+								<!-- Block2 -->
+								<div class="block2">
+								<div class="block2-pic hov-img0">
+									<img src="images/@item.PhotoPath" alt="IMG-PRODUCT">
+
+									<a href="@Url.Action("Details","Home",new{id=item.ProductID})" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+									Quick View
+									</a>
+								</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									@item.ProductName
+								</a>
+
+								<span class="stext-105 cl3">
+									$@item.UnitPrice
+								</span>
+							</div>
+							<input type="hidden" value="@item.ProductID" class="PrID" id="pID">
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+						}																
+								</div>
+								<input type="hidden" id="pageNum1" value="0" />								
+								
+						</div>
+						<!-- Load more -->
+								<div class="flex-c-m flex-w w-full p-t-45 more">
+									<input type="submit" id="allmore" value="Load More" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">			
+								</div>
+					</div>
+
+					<!-- - -->
+					<div class="tab-pane fade" id="women" role="tabpanel">
+						<div class="wrap-slick2">
+							<div class="slick2">
+								@foreach (var item in Model.Women)
+								{
+								<div class="col-sm-6 col-md-4 col-lg-3">
+								<!-- Block2 -->
+								<div class="block2">
+								<div class="block2-pic hov-img0">
+									<img src="images/@item.PhotoPath" alt="IMG-PRODUCT">
+
+									<a href="@Url.Action("Details","Home",new{id=item.ProductID})" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+									Quick View
+									</a>
+								</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									@item.ProductName
+								</a>
+
+								<span class="stext-105 cl3">
+									$@item.UnitPrice
+								</span>
+							</div>
+							<input type="hidden" value="@item.ProductID" class="PrID" id="pID">
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+						}																
+								</div>
+								<input type="hidden" id="pageNum2" value="0" />								
+								
+						</div>
+						<!-- Load more -->
+								<div class="flex-c-m flex-w w-full p-t-45 more">
+									<input type="submit" id="womenmore" value="Load More" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">			
+								</div>
+					</div>
+
+					<!-- - -->
+					<div class="tab-pane fade" id="men" role="tabpanel">
+						<div class="wrap-slick2">
+							<div class="slick2">
+								@foreach (var item in Model.Men)
+								{
+								<div class="col-sm-6 col-md-4 col-lg-3">
+								<!-- Block2 -->
+								<div class="block2">
+								<div class="block2-pic hov-img0">
+									<img src="images/@item.PhotoPath" alt="IMG-PRODUCT">
+
+									<a href="@Url.Action("Details","Home",new{id=item.ProductID})" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+									Quick View
+									</a>
+								</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									@item.ProductName
+								</a>
+
+								<span class="stext-105 cl3">
+									$@item.UnitPrice
+								</span>
+							</div>
+							<input type="hidden" value="@item.ProductID" class="PrID" id="pID">
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+						}																
+								</div>
+								<input type="hidden" id="pageNum3" value="0" />								
+								
+						</div>
+						<!-- Load more -->
+								<div class="flex-c-m flex-w w-full p-t-45 more">
+									<input type="submit" id="menmore" value="Load More" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">			
+								</div>
+					</div>
+
+					<div class="tab-pane fade" id="bag" role="tabpanel">
+						<div class="wrap-slick2">
+							<div class="slick2">
+								@foreach (var item in Model.Bag)
+								{
+								<div class="col-sm-6 col-md-4 col-lg-3">
+								<!-- Block2 -->
+								<div class="block2">
+								<div class="block2-pic hov-img0">
+									<img src="images/@item.PhotoPath" alt="IMG-PRODUCT">
+
+									<a href="@Url.Action("Details","Home",new{id=item.ProductID})" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+									Quick View
+									</a>
+								</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									@item.ProductName
+								</a>
+
+								<span class="stext-105 cl3">
+									$@item.UnitPrice
+								</span>
+							</div>
+							<input type="hidden" value="@item.ProductID" class="PrID" id="pID">
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+						}																
+								</div>
+								<input type="hidden" id="pageNum4" value="0" />								
+								
+						</div>
+						<!-- Load more -->
+								<div class="flex-c-m flex-w w-full p-t-45 more">
+									<input type="submit" id="bagmore" value="Load More" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">			
+								</div>
+					</div>
+					
+					<div class="tab-pane fade" id="shoes" role="tabpanel">
+						<div class="wrap-slick2">
+							<div class="slick2">
+								@foreach (var item in Model.Shoes)
+								{
+								<div class="col-sm-6 col-md-4 col-lg-3">
+								<!-- Block2 -->
+								<div class="block2">
+								<div class="block2-pic hov-img0">
+									<img src="images/@item.PhotoPath" alt="IMG-PRODUCT">
+
+									<a href="@Url.Action("Details","Home",new{id=item.ProductID})" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+									Quick View
+									</a>
+								</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									@item.ProductName
+								</a>
+
+								<span class="stext-105 cl3">
+									$@item.UnitPrice
+								</span>
+							</div>
+							<input type="hidden" value="@item.ProductID" class="PrID" id="pID">
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+						}																
+								</div>
+						<input type="hidden" id="pageNum5" value="0" />								
+								
+						</div>
+						<!-- Load more -->
+								<div class="flex-c-m flex-w w-full p-t-45 more">
+									<input type="submit" id="shoesmore" value="Load More" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">			
+								</div>
+					</div>
+
+					<div class="tab-pane fade" id="watches" role="tabpanel">
+						<div class="wrap-slick2">
+							<div class="slick2">
+								@foreach (var item in Model.Watches)
+								{
+								<div class="col-sm-6 col-md-4 col-lg-3">
+								<!-- Block2 -->
+								<div class="block2">
+								<div class="block2-pic hov-img0">
+									<img src="images/@item.PhotoPath" alt="IMG-PRODUCT">
+
+									<a href="@Url.Action("Details","Home",new{id=item.ProductID})" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+									Quick View
+									</a>
+								</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									@item.ProductName
+								</a>
+
+								<span class="stext-105 cl3">
+									$@item.UnitPrice
+								</span>
+							</div>
+							<input type="hidden" value="@item.ProductID" class="PrID" id="pID">
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+						}																
+				</div>
+								<input type="hidden" id="pageNum6" value="0" />								
+								
+						</div>
+						<!-- Load more -->
+								<div class="flex-c-m flex-w w-full p-t-45 more">
+									<input type="submit" id="watchesmore" value="Load More" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">			
+								</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Back to top -->
+	<div class="btn-back-to-top" id="myBtn">
+		<span class="symbol-btn-back-to-top">
+			<i class="zmdi zmdi-chevron-up"></i>
+		</span>
+	</div>
+
+
+
+
+<script>
+	$(document).on('click','#allmore',function(){
+		var pageNo= parseInt($("#pageNum1").val())
+		var npageno = pageNo + 1;
+		$.ajax({
+		type:"GET",
+		url:"/Home/_partialShop",
+		data: {model:"AllProduct",pageNumber:npageno},
+		async:true,
+		processData:true,
+		cache:true,
+        success: function(result) {
+			$("#allmore").before(result)
+			$("#pageNum1").val(npageno)          
+		}
+	})
+	})
+	
+
+</script>
+<script>
+	$(document).on('click','#womenmore',function(){
+		var pageNo= parseInt($("#pageNum2").val())
+		var npageno = pageNo + 1;
+		$.ajax({
+		type:"GET",
+		url:"/Home/_partialShop",
+		data: {model:"Women",pageNumber:npageno},
+		async:true,
+		processData:true,
+		cache:true,
+        success: function(result) {
+			$("#womenmore").before(result)
+			$("#pageNum2").val(npageno)
+		}
+	})
+	})
+</script>
+<script>
+	$(document).on('click','#menmore',function(){
+		var pageNo= parseInt($("#pageNum3").val())
+		var npageno = pageNo + 1;
+		$.ajax({
+		type:"GET",
+		url:"/Home/_partialShop",
+		data: {model:"Men",pageNumber:npageno},
+		async:true,
+		processData:true,
+		cache:true,
+        success: function(result) {
+			$("#menmore").before(result)
+			$("#pageNum3").val(npageno)
+		}
+	})
+	})
+</script>
+<script>
+	$(document).on('click','#bagmore',function(){
+		var pageNo= parseInt($("#pageNum4").val())
+		var npageno = pageNo + 1;
+		$.ajax({
+		type:"GET",
+		url:"/Home/_partialShop",
+		data: {model:"Bag",pageNumber:npageno},
+		async:true,
+		processData:true,
+		cache:true,
+        success: function(result) {
+			$("#bagmore").before(result)
+			$("#pageNum4").val(npageno)
+		}
+	})
+	})
+</script>
+<script>
+	$(document).on('click','#shoesmore',function(){
+		var pageNo= parseInt($("#pageNum5").val())
+		var npageno = pageNo + 1;
+		$.ajax({
+		type:"GET",
+		url:"/Home/_partialShop",
+		data: {model:"Shoes",pageNumber:npageno},
+		async:true,
+		processData:true,
+		cache:true,
+        success: function(result) {
+			$("#shoesmore").before(result)
+			$("#pageNum5").val(npageno)
+		}
+	})
+	})
+</script>
+<script>
+	$(document).on('click','#watchesmore',function(){
+		var pageNo= parseInt($("#pageNum6").val())
+		var npageno = pageNo + 1;
+		$.ajax({
+		type:"GET",
+		url:"/Home/_partialShop",
+		data: {model:"Watches",pageNumber:npageno},
+		async:true,
+		processData:true,
+		cache:true,
+        success: function(result) {
+			$("#watchesmore").before(result)
+			$("#pageNum6").val(npageno)
+		}
+	})
+	})
+</script>

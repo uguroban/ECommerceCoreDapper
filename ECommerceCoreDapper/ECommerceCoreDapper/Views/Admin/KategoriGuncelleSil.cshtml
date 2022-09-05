@@ -1,0 +1,58 @@
+﻿@using ECommerceCoreDapper.Models
+@model Categories
+@{
+    ViewBag.Title = "KategoriKaydet";
+    Layout = "~/Views/Shared/admin_layout.cshtml";
+
+    IEnumerable<SelectListItem> cl = ViewData["clist"] as IEnumerable<SelectListItem>;
+   
+}
+
+<br />
+<br />
+
+<div class="portlet box purple ">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> KATEGORİ GÜNCELLEME FORMU
+        </div>
+        <div class="tools">
+            <a href="" class="collapse">
+            </a>
+            <a href="#portlet-config" data-toggle="modal" class="config">
+            </a>
+            <a href="" class="reload">
+            </a>
+            <a href="" class="remove">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        <form class="form-horizontal" role="form" action="/Admin/KategoriGuncelleSil/@Model" method="post">
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">KATEGORİ SEÇİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.DropDownList("CategoryID", cl, "Seçiniz", new {@class= "form-control input-lg" })
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">KATEGORİ ADI</label>
+                    <div class="col-md-9">
+                        <input type="text" id="txtCatName" class="form-control input-lg" name="CategoryName" required maxlength="50">
+                    </div>               
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">ALT KATEGORİ SEÇİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.DropDownList("ParentID", cl, "Seçiniz", new {@class= "form-control input-lg" })
+                    </div>
+                </div>
+            </div>
+            <div class="form-actions right1">
+                <button type="submit" id="catAdd" class="btn green">GÜNCELLE</button>
+            </div>
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,181 @@
+﻿@using ECommerceCoreDapper.Models
+@model Products
+@{
+    ViewData["Title"] = "UrunGuncelleSil";
+    Layout = "~/Views/Shared/admin_layout.cshtml";
+
+    IEnumerable<SelectListItem> blist = ViewData["blist"] as IEnumerable<SelectListItem>;
+    IEnumerable<SelectListItem> slist = ViewData["slist"] as IEnumerable<SelectListItem>;
+    IEnumerable<SelectListItem> clist = ViewData["clist"] as IEnumerable<SelectListItem>;
+    IEnumerable<SelectListItem> cllist = ViewData["cllist"] as IEnumerable<SelectListItem>;
+    IEnumerable<SelectListItem> szlist = ViewData["szlist"] as IEnumerable<SelectListItem>;
+     IEnumerable<SelectListItem> plist = ViewData["plist"] as IEnumerable<SelectListItem>;
+}
+
+<br />
+<br />
+
+ 
+<div class="portlet box purple ">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> ÜRÜN GÜNCELLEME FORMU
+        </div>
+        <div class="tools">
+            <a href="" class="collapse">
+            </a>
+            <a href="#portlet-config" data-toggle="modal" class="config">
+            </a>
+            <a href="" class="reload">
+            </a>
+            <a href="" class="remove">
+            </a>
+        </div>
+    </div>     
+    <div class="portlet-body form">
+        <div class="form-group"> 
+                    <label class="col-md-3 control-label">TEDARİKÇİ SEÇİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m=>m.ProductID, plist,"Ürün Seçiniz", new {@class= "form-control input-lg",onchange = "document.location.href = '/Admin/UrunGuncelleSil?id=' + this.options[this.selectedIndex].value;"}) 
+                    </div>
+                </div>
+        <div id="divform">
+             @using (Html.BeginForm("UrunGuncelleSil","Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+        {       
+                
+                <div class="form-body">                 
+                @Html.HiddenFor(m=>m.ProductID,new{@class="form-control input-lg", name="ProductID"})                                   
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ÜRÜN ADI</label>
+                    <div class="col-md-9">
+                @Html.TextBoxFor(m=>m.ProductName,new{@class="form-control input-lg", name="ProductName", @required="required", maxlength="50"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">MARKA SEÇİNİZ</label>
+                    <div class="col-md-9">
+                         @Html.DropDownListFor(m=>m.BrandID, blist,"Seçiniz", new {@class= "form-control input-lg"}) 
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ÜRÜN AÇIKLAMASI</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.ProductDescription,new{@class="form-control input-lg", name="ProductDescription"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">TEDARİKÇİ SEÇİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m=>m.SupplierID, slist,"Seçiniz", new {@class= "form-control input-lg"}) 
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">KADIN/ERKEK KATEGORİSİ SEÇİNİZ</label>                    
+                    <div class="input-group">
+				        <div class="icheck-inline">						
+						&nbsp;&nbsp;Kadın:&nbsp;<input type="radio" name="WomenorMen" id="rd1"  asp-for=WomenorMen value=true class="icheck" data-radio="iradio_square-green">
+                        &nbsp;&nbsp;&nbsp;
+						Erkek:&nbsp;<input type="radio" name="WomenorMen" id="rd2" asp-for=WomenorMen class="icheck" value=false data-radio="iradio_square-green">
+						</div>
+					</div>                     
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">KATEGORİ SEÇİNİZ</label>
+                    <div class="col-md-9">
+                         @Html.DropDownListFor(m=>m.CategoryID, clist,"Seçiniz", new {@class= "form-control input-lg"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">BİRİM BAŞINA MİKTARI GİRİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.QuantityPerUnit,new{@class="form-control input-lg", name="QuantityPerUnit",onkeypress="return numberonly(this, event);"})
+                        
+                         </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ÜRÜN FİYATI GİRİNİZ</label>
+                    <div class="col-md-9">
+                         @Html.TextBoxFor(m=>m.UnitPrice,new{@class="form-control input-lg", name="UnitPrice", @required="required",onkeypress="return numberonly(this, event);"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">PERAKENDE FİYATI GİRİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.RetailPrice,new{@class="form-control input-lg", name="UnitPrice", @required="required",onkeypress="return numberonly(this, event);"})                                              
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label class="col-md-3 control-label">BEDEN SEÇİNİZ</label>
+                        <div class="col-md-9">
+                          @Html.DropDownListFor(m=>m.SizeID, szlist,"Seçiniz", new {@class= "form-control input-lg"})   
+                        </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">RENK SEÇİNİZ</label>
+                    <div class="col-md-9">
+                         @Html.DropDownListFor(m=>m.ColorID, cllist,"Seçiniz", new {@class= "form-control input-lg"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">İNDİRİM ORANI GİRİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.Discount,new{@class="form-control input-lg", name="Discount",onkeypress="return numberonly(this, event);"})
+                    </div>
+                </div> 
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ÜRÜN AĞIRLIĞI GİRİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.UnitWeight,new{@class="form-control input-lg", name="UnitWeight",onkeypress="return numberonly(this, event);"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">STOK MİKTARINI GİRİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.UnitsInStock,new{@class="form-control input-lg", name="UnitWeight",onkeypress="return numberonly(this, event);"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ÜRÜN SATIŞTA OLSUN MU?</label>
+                    <div class="col-md-9">
+                       @Html.CheckBoxFor(m=>m.ProductAvailable,"true")
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">İNDİRİM UYGULANSIN MI?</label>
+                    <div class="col-md-9">
+                       @Html.CheckBoxFor(m=>m.DiscountAvailable,"true")
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label class="col-md-3 control-label">RESİM SEÇİNİZ</label>
+                        <div class="col-md-9">
+                           <input type="file" class="form-control input-lg" name="fileOne" placeholder="Ana Resmi Seçiniz." >
+                        </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ÜRÜN PUANI GİRİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.Ranking,new{@class="form-control input-lg", name="Ranking",@type="number", min="1", max="10",placeholder="1-10 arası bir rakam giriniz..",onkeypress="return numberonly(this, event);"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ACIKLAMA GİRİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.Note,new{@class="form-control input-lg", name="Note", maxlength="250"})
+                    </div>
+                </div>
+                 <div class="form-actions right1">
+                    <button type="submit" id="catAdd" class="btn green">GUNCELLE</button>
+                 </div>
+            </div>    
+            </div>
+        }
+        </div>
+                
+              
+    </div>   
+</div>
+
+
+
+
+

@@ -1,0 +1,256 @@
+﻿@using ECommerceCoreDapper.MVVM
+@model ViewSupplierModel
+
+@{
+    ViewData["Title"] = "TedarikciGuncelleSil";
+    Layout = "~/Views/Shared/admin_layout.cshtml";
+
+    IEnumerable<SelectListItem> dlist = ViewData["dlist"] as IEnumerable<SelectListItem>;
+     IEnumerable<SelectListItem> slist = ViewData["slist"] as IEnumerable<SelectListItem>;
+}
+
+<br />
+<br />
+
+ 
+
+
+
+<!-- BEGIN SAMPLE FORM PORTLET-->
+<div class="portlet box purple ">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> TEDARİKÇİ GÜNCELLEME FORMU
+        </div>
+        <div class="tools">
+            <a href="" class="collapse">
+            </a>
+            <a href="#portlet-config" data-toggle="modal" class="config">
+            </a>
+            <a href="" class="reload">
+            </a>
+            <a href="" class="remove">
+            </a>
+        </div>
+    </div> 
+    
+    <div id="getir" class="portlet-body form">  
+        <div class="form-group">
+             <label class="col-md-3 control-label">TEDARİKÇİ SEÇİNİZ</label>
+             <div class="col-md-9">
+                 @Html.DropDownList("SupplierID",slist, "Seçiniz", new {@class= "form-control input-lg",id="ted" })
+                        
+             </div>
+        </div>
+        <div id="divform">
+             @using (Html.BeginForm("TedarikciGuncelleSil","Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+        {
+              @Html.HiddenFor(m=>m.supplier.SupplierID,new {@class="form-control input-lg",@name="SupplierID"})
+              @Html.HiddenFor(m=>m.supplier.AddressID,new {@class="form-control input-lg",@name="AddressId"})
+                <div class="form-body">
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ŞİRKET ADI</label>
+                    <div class="col-md-9">
+                @Html.TextBoxFor(m=>m.supplier.CompanyName,new{@class="form-control input-lg", name="CompanyName", @required="required", maxlength="50"})
+@*            <input type="text" class="form-control input-lg" name="CompanyName" required maxlength="50" value="@if (@Model!=null){@Model.supplier.CompanyName }">
+*@                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">YETKİLİ ADI</label>
+                    <div class="col-md-9">
+                         @Html.TextBoxFor(m=>m.supplier.ContactFName,new{@class="form-control input-lg", name="ContactFName", @required="required", maxlength="30"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">YETKİLİ SOYADI</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.supplier.ContactLName,new{@class="form-control input-lg", name="ContactLName", @required="required", maxlength="50"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">YETKİLİ ÜNVANI</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.supplier.ContactTitle,new{@class="form-control input-lg", name="ContactTitle", maxlength="50"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">WEBSİTE</label>
+                    <div class="col-md-9">
+                         @Html.TextBoxFor(m=>m.supplier.WebSite,new{@class="form-control input-lg", name="WebSite", maxlength="100"})
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">İNDİRİM TİPİ SEÇİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.DropDownListFor(m=>m.supplier.DiscountType, dlist,"Seçiniz", new {@class= "form-control input-lg"}) 
+                        
+                         </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">İNDİRİM ORANI GİRİNİZ</label>
+                    <div class="col-md-9">
+                         @Html.TextBoxFor(m=>m.supplier.DiscountRate,new{@class="form-control input-lg", name="DiscountRate", @required="required", maxlength="50",onkeypress="return numberonly(this, event);"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">İNDİRİM YAPMAYA İZİN VER</label>
+                    <div class="col-md-9">
+                        @Html.CheckBoxFor(c=>c.supplier.DiscountAvailable,"true")                                               
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label class="col-md-3 control-label">LOGO SEÇİNİZ</label>
+                        <div class="col-md-9">
+@*                             @Html.TextBoxFor(m=>m.supplier.Logo,new{@class="form-control input-lg",multiple = "multiple",type="file",name="fileOne", maxlength="75"})
+*@                             <input type="file" class="form-control input-lg" name="fileOne" placeholder="Logo Seçiniz." >
+                        </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ACIKLAMA GİRİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.supplier.Note,new{@class="form-control input-lg", name="Note", maxlength="250"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">TEDERİKCİ PUANI GİRİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.supplier.Ranking,new{@class="form-control input-lg", name="Ranking",@type="number", min="1", max="10",placeholder="1-10 arası bir rakam giriniz..",onkeypress="return numberonly(this, event);"})
+                    </div>
+                </div>
+        <div class="portlet box purple ">
+        <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> ADRES GİRİŞ FORMU
+        </div>
+        <div class="tools">
+            <a href="" class="collapse">
+            </a>
+            <a href="#portlet-config" data-toggle="modal" class="config">
+            </a>
+            <a href="" class="reload">
+            </a>
+            <a href="" class="remove">
+            </a>
+        </div>
+            </div>
+                <div class="portlet-body form">        
+            <div class="form-body">              
+                <div class="form-group"> 
+                    @Html.HiddenFor(m=>m.address.AddressID,new{name="AddressID"})
+                    <label class="col-md-3 control-label">ADRES ADI</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.address.AddressName,new{@class="form-control input-lg", name="AddressName", @required="required", maxlength="50"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ADRES BİLGİSİ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.address.Address1,new{@class="form-control input-lg", name="Address1", @required="required", maxlength="60"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ADRES BİLGİSİ</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.address.Address2,new{@class="form-control input-lg", name="Address2", maxlength="50"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">ŞEHİR</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.address.City,new{@class="form-control input-lg", name="City", @required="required", maxlength="30"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">İLÇE</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.address.State,new{@class="form-control input-lg", name="State", @required="required", maxlength="60"})
+                    </div>
+                </div>
+                 <div class="form-group"> 
+                    <label class="col-md-3 control-label">POSTA NUMARASI</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.address.PostalCode,new{@class="form-control input-lg", name="PostalCode", maxlength="30"})
+                    </div>
+                </div>
+                 <div class="form-group"> 
+                    <label class="col-md-3 control-label">ÜLKE</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.address.Country,new{@class="form-control input-lg", name="Country", @required="required", maxlength="60"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">TELEFON NUMARASI</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.address.Phone,new{@class="form-control input-lg", name="Phone", @required="required", maxlength="25"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">FAX NUMARASI</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.address.Fax,new{@class="form-control input-lg", name="Fax", @required="required", maxlength="25"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">EMAİL</label>
+                    <div class="col-md-9">
+                        @Html.TextBoxFor(m=>m.address.Email,new{@class="form-control input-lg", name="Email", @required="required", maxlength="25"})
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">FATURA ADRESİ</label>
+                    <div class="col-md-9">
+                        @Html.CheckBoxFor(c=>c.address.IsBill,"true") 
+                        
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">KARGO ADRESİ</label>
+                    <div class="col-md-9">
+                       @Html.CheckBoxFor(c=>c.address.IsShip,"true")
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">AKTİF ADRES Mİ?</label>
+                    <div class="col-md-9">
+                        @Html.CheckBoxFor(c=>c.address.Active,"true")
+                    </div>
+                </div>                 
+            </div>     
+    </div>
+                 </div>       
+                 <div class="form-actions right1">
+                    <button type="submit" id="catAdd" class="btn green">KAYDET</button>
+                 </div>
+            </div>    
+            </div>
+        @*</form>*@
+        }
+        </div>
+                
+              
+    </div>   
+</div>
+
+<script>
+$(document).ready(function() {
+    $("#ted").on('change', function() {
+        var id = parseInt($("#ted").val())
+        $("#divform").remove();
+		 $.ajax({
+                async:true,
+                url:"@Url.Action("TedarikciGuncelleSil","Admin")",
+                data: {id:id},
+                success: function(result) 
+                {                                      
+                    $("#container").html(result)
+                }
+
+            })
+    })
+})
+</script>   
+   
+
+<!-- END SAMPLE FORM PORTLET-->
+
+
+

@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "MarkaKaydet";
+    Layout = "~/Views/Shared/admin_layout.cshtml";
+}
+
+<br />
+<br />
+<div class="portlet box purple ">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> MARKA GİRİŞ FORMU
+        </div>
+        <div class="tools">
+            <a href="" class="collapse">
+            </a>
+            <a href="#portlet-config" data-toggle="modal" class="config">
+            </a>
+            <a href="" class="reload">
+            </a>
+            <a href="" class="remove">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        @*<form class="form-horizontal" role="form" action="/Admin/MarkaKaydet" method="post">*@
+        @using (Html.BeginForm("MarkaKaydet", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+        {
+            <div class="form-body">
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">MARKA ADI</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control input-lg" name="BrandName" required maxlength="50">
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">MARKA ACIKLAMASI</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control input-lg" name="BrandDescription">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label class="col-md-3 control-label">LOGO SEÇİNİZ</label>
+                        <div class="col-md-9">
+                            <input type="file" class="form-control input-lg" name="fileOne" placeholder="Logo Seçiniz." required>
+                        </div>
+                </div>
+            </div>
+            <div class="form-actions right1">
+                <button type="submit" id="supAdd" class="btn green">KAYDET</button>
+            </div>
+        @*</form>*@
+        }
+    </div>
+</div>
+<script>
+$(document).ready(function() {
+    $("#supAdd").on('click', function() {
+        if ('@ViewBag.hata'=="") {
+             swal({
+            title: "Sweet!",
+            text: "Here's a custom image.",
+            imageUrl: 'thumbs-up.jpg'
+            },3000); 
+        }
+        else{
+            swal("Marka zaten eklenmiş!", "Üzgünüz")
+        }
+             
+    })
+})
+</script>
+

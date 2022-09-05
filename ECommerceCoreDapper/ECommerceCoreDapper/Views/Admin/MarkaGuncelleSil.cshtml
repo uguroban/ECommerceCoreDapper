@@ -1,0 +1,64 @@
+﻿
+@{
+    ViewData["Title"] = "MarkaGuncelleSil";
+    Layout = "~/Views/Shared/admin_layout.cshtml";
+
+    IEnumerable<SelectListItem> bl = ViewData["blist"] as IEnumerable<SelectListItem>;
+}
+
+<br />
+<br />
+<div class="portlet box purple ">
+    <div class="portlet-title">
+        <div class="caption">
+            <i class="fa fa-gift"></i> MARKA GÜNCELLEME FORMU
+        </div>
+        <div class="tools">
+            <a href="" class="collapse">
+            </a>
+            <a href="#portlet-config" data-toggle="modal" class="config">
+            </a>
+            <a href="" class="reload">
+            </a>
+            <a href="" class="remove">
+            </a>
+        </div>
+    </div>
+    <div class="portlet-body form">
+        @*<form class="form-horizontal" role="form" action="/Admin/MarkaKaydet" method="post">*@
+        @using (Html.BeginForm("MarkaGuncelleSil", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+        {
+            <div class="form-body">
+                <div class="form-group">
+                    <label class="col-md-3 control-label">MARKA SEÇİNİZ</label>
+                    <div class="col-md-9">
+                        @Html.DropDownList("BrandID", bl, "Seçiniz", new {@class= "form-control input-lg" })
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">MARKA ADI</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control input-lg" name="BrandName" required maxlength="50">
+                    </div>
+                </div>
+                <div class="form-group"> 
+                    <label class="col-md-3 control-label">MARKA ACIKLAMASI</label>
+                    <div class="col-md-9">
+                        <input type="text" class="form-control input-lg" name="BrandDescription">
+                    </div>
+                </div>
+                <div class="form-group">
+                        <label class="col-md-3 control-label">LOGO SEÇİNİZ</label>
+                        <div class="col-md-9">
+                            <input type="file" class="form-control input-lg" name="fileOne" placeholder="Logo Seçiniz." required>
+                        </div>
+                </div>
+            </div>
+            <div class="form-actions right1">
+                <button type="submit" id="catAdd" class="btn green">GÜNCELLE</button>               
+            </div>
+        @*</form>*@
+        }
+    </div>
+</div>
+

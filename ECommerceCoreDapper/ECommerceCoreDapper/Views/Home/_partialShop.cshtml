@@ -1,0 +1,103 @@
+﻿@using ECommerceCoreDapper.MVVM
+@model ViewProductsModel
+@{
+    ViewData["Title"] = "_partialShop";
+    Layout = "";
+	List<ProductAllJoin> plist=TempData["model"] as List<ProductAllJoin>;
+	
+}
+
+@foreach (var item in plist )
+				{
+					<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
+					<!-- Block2 -->
+					<div class="block2">
+						<div class="block2-pic hov-img0">
+							<img src="images/@item.PhotoPath" alt="IMG-PRODUCT">
+
+							<a href="@Url.Action("Details","Home",new{id=item.ProductID})" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
+								Quick View
+							</a>
+						</div>
+
+						<div class="block2-txt flex-w flex-t p-t-14">
+							<div class="block2-txt-child1 flex-col-l ">
+								<a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+									@item.ProductName
+								</a>
+
+								<span class="stext-105 cl3">
+									$@item.UnitPrice
+								</span>
+							</div>
+							<input type="hidden" value="@item.ProductID" class="PrID" id="pID">
+							<div class="block2-txt-child2 flex-r p-t-3">
+								<a href="#" class="btn-addwish-b2 dis-block pos-relative js-addwish-b2">
+									<img class="icon-heart1 dis-block trans-04" src="images/icons/icon-heart-01.png" alt="ICON">
+									<img class="icon-heart2 dis-block trans-04 ab-t-l" src="images/icons/icon-heart-02.png" alt="ICON">
+								</a>
+							</div>
+						</div>
+					</div>
+					</div>
+				}
+
+
+<script>
+			$('.js-addwish-b2').on('click', function(e){
+				e.preventDefault();	
+				var Pid = $(this).parent().parent().find('.PrID').val();
+			});
+			$('.js-addwish-b2').each(function(){
+				var nameProduct = $(this).parent().parent().find('.js-name-b2').html();				
+				$(this).on('click', function(){					
+					if($(this).hasClass('js-addedwish-b2')) {                      
+						swal(nameProduct,"is remove to wishlist !", "error");
+						$(this).removeClass('js-addedwish-b2');
+                        $.get("/User/Mywish", { id: $(this).parent().parent().find('.PrID').val()}, function(result) {
+
+						})
+						
+					}
+					else 
+					{
+						swal(nameProduct, "is added to wishlist !", "success");
+						$(this).addClass('js-addedwish-b2');
+						 $.get("/User/Mywish", { id: $(this).parent().parent().find('.PrID').val() }, function(result) {
+
+						})
+                        				
+					}
+				
+					//$(this).off('click');
+			
+				});	
+			});
+		
+			
+
+
+		$('.js-addwish-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().find('.js-name-detail').html();
+			$(this).on('click', function(){
+				swal(nameProduct, "is added to wishlist !", "success");
+
+				$(this).addClass('js-addedwish-detail');
+				$(this).off('click');
+			});
+		});
+
+		/*---------------------------------------------*/
+
+		$('.js-addcart-detail').each(function(){
+			var nameProduct = $(this).parent().parent().parent().parent().find('.js-name-detail').html();
+			var Pid = $(this).parent().parent().find('.PrID').val();			
+				$(this).on('click', function(){
+				swal(nameProduct, "is added to cart !", "success");
+				 $.get("/User/GetCart", { id: $(this).parent().parent().find('.PrID').val() }, function(result) {
+					window.location.reload(false)
+				})
+			});
+		});
+	
+	</script>
