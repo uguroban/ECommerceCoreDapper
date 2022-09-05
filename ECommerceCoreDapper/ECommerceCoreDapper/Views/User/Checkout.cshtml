@@ -334,21 +334,21 @@
                  <div class="form-group row">
                 <div class="col-md-12">
                  <label for="c_companyname" class="text-black">Credit Cart Number </label>
-                 <input type="text" class="form-control" id="c_companyname" name="c_companyname" maxlength="16" required>
+                 <input type="text" class="form-control" id="c_companyname" name="c_companyname" maxlength="16" required onkeypress="return numberonly(this, event);" >
                 </div>
                </div> 
                  <div class="form-group row">
                 <div class="col-md-4">
                   <label for="c_fname" class="text-black">Month <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_fname" name="c_fname" min="1" max="12" maxlength="2" required>
+                  <input type="text" class="form-control" id="c_fname" name="c_fname" min="1" max="12" maxlength="2" required onkeypress="return numberonly(this, event);">
                 </div>
                 <div class="col-md-4">
                   <label for="c_lname" class="text-black">Year <span class="text-danger">*</span></label>
-                  <input type="text" class="form-control" id="c_lname" name="c_lname" maxlength="2" required>
+                  <input type="text" class="form-control" id="c_lname" name="c_lname" maxlength="2" required onkeypress="return numberonly(this, event);">
                 </div>
                 <div class="col-md-4">
                   <label for="c_fname" class="text-black">CVS<span class="text-danger">*</span></label>
-                  <input type="password" class="form-control" id="c_fname" name="c_fname" maxlength="4" required>
+                  <input type="password" class="form-control" id="c_fname" name="c_fname" maxlength="4" required onkeypress="return numberonly(this, event);">
                 </div>
               </div>
               </div>
